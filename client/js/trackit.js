@@ -1,6 +1,7 @@
 var trackit = (function($,self){
     var trackitobj = {
-        trackinginfo : '',
+        trackinginfo : new Array(),
+        counter : 0,
 
         init : function(obj){
             var time = (typeof obj.time)? obj.time : 10000;
@@ -10,11 +11,11 @@ var trackit = (function($,self){
         },
         listener : function(){
             $('#testarea').on('mousedown',function(e){
-                console.log(e);
-                trackitobj.trackinginfo['raw'] = e;
-                trackitobj.trackinginfo['element'] = e.target;
-                trackitobj.trackinginfo['text'] = $(e.target).text().trim() ;
-                console.log(trackitobj.trackinginfo)
+                var obj = {};
+                obj.ele = e.target.outerHTML;
+                trackit.trackinginfo.push(obj);
+                console.log(trackitobj.trackinginfo);
+
                 e.preventDefault();
             })
         },
@@ -26,15 +27,13 @@ var trackit = (function($,self){
         send : function(){
             $.ajax({
                     'url' : 'http://localhost:8080/api',
-                    'data' : trackitobj.data,
+                    'data' : {'data': JSON.stringify(trackitobj.trackinginfo) },
                     'method' : 'POST'
                 });
         }
 
     }
 
-    return {
-        init : trackitobj.init
-    }
+    return trackitobj;
 
 })($,window);
