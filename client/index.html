@@ -2,22 +2,22 @@
 <html>
 	<head>
 		<script type="text/javascript" src="js\jquery-2.1.4.js"></script>
-        <script type="text/javascript" src="js\cycle.js"></script>
-        <script type="text/javascript" src="js\trackit.js"></script>
-
+		<script type="text/javascript" src="js\trackify.js"></script>
 	</head>
-	<body>
+	<body id="body">
         <div id="testarea" style="height:1000px;width: 1000px">
             dummmy text
         </div>
-
     </body>
 	<footer>
-
-        <script>
-            trackit.init({'time':'3000'});
-        </script>
-
+		<script>
+      		$.trackify.run({
+				target : {
+					body : 'body',
+					div  : 'div'
+				}
+			});
+  		</script>
 	</footer>
 
 </html>
